@@ -143,6 +143,7 @@ Thumbs.db
 
 # Except this specific file
 !1_simple_llm_call.py
+!2_sequential_chain.py
 
 # Also allow the gitignore itself to be tracked (optional but recommended)
 !.gitignore
