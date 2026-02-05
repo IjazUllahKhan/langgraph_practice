@@ -2,8 +2,10 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+import os
 
 load_dotenv()
+os.environ["LANGCHAIN_PROJECT"] = "Sequential chain App"
 
 prompt1 = PromptTemplate(
     template='Generate a detailed report on {topic}',
@@ -24,6 +26,15 @@ parser = StrOutputParser()
 
 chain = prompt1 | model | parser | prompt2 | model | parser
 
-result = chain.invoke({'topic': 'Unemployment in pakistan'})
+config = {
+    'run_name': 'sequential chain',
+    'tags': ['llm app','report generatio','summarization'],
+    'metadata': {
+        'model': "llama-3.3-70b-versatile",
+        'parser': 'StrOutputParser'
+    }
+}
+
+result = chain.invoke({'topic': 'Unemployment in pakistan'}, config = config)
 
 print(result)
