@@ -10,6 +10,7 @@ from langchain_core.tools import tool
 from dotenv import load_dotenv
 import sqlite3
 import requests
+import os
 
 load_dotenv()
 
@@ -45,7 +46,8 @@ def calculator(first_num: float, second_num: float, operation: str) -> dict:
 
 @tool(description="Get the latest stock price for a given stock symbol")
 def get_stock_price(symbol: str) -> dict:
-    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey=C9PE94QUEW9VWGFM"
+    api_key = os.getenv("ALPHAVANTAGE_API_KEY")
+    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={api_key}"
     r = requests.get(url)
     return r.json()
 
@@ -70,7 +72,8 @@ tool_node = ToolNode(tools)
 # ======================
 # 5. SQLite
 # ======================
-conn = sqlite3.connect("chatbot.db", check_same_thread=False)
+DB_PATH = os.path.join(os.getcwd(), "chatbot.db")
+conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 checkpointer = SqliteSaver(conn)
 
 # Thread name table
