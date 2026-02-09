@@ -1,5 +1,7 @@
 streamlit
 langgraph
+langgraph-checkpoint
+langgraph-checkpoint-sqlite
 langchain-core
 langchain-groq
 langchain-community
