@@ -9,3 +9,4 @@ duckduckgo-search
 python-dotenv
 requests
 sqlite-utils
+ddgs
